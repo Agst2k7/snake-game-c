@@ -5,9 +5,9 @@
 #define BOARD_SIZE_Y 10
 
 enum Entities{
+    AIR,
     SNAKE_PART,
-    APPLE,
-    AIR
+    APPLE
 };
 
 struct Board {

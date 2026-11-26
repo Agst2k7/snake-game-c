@@ -3,7 +3,7 @@
 
 int main(){
 
-    struct Board board;
+    struct Board board = {AIR};
 
     board.places[0][0] = AIR;
     board.places[1][1] = SNAKE_PART;
