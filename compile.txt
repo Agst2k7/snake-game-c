@@ -1,3 +1,5 @@
 gcc main.c \
 ./src/CLI/cli.c \
+./src/game/board_game.c \
+./src/game/snake_game.c \
 -o ./builds/snake-game-c

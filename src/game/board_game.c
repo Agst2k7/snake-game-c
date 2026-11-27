@@ -1,14 +1,34 @@
 #include "./board_game.h"
 
-enum Position calc_new_snake_part_pos(const struct *snake){
+void make_move(struct Board *board, const struct Position *pos, const enum Entities ent){
+    board->places[pos->Y][pos->X] = ent;
+}
+
+struct Position calc_new_snake_part_pos(const struct Snake *snake){
     if(snake->dir == UP){
-        
+        if((snake->pos.Y-1)<0){return (struct Position){snake->pos.X, BOARD_SIZE-1};}
+        return (struct Position){snake->pos.X, snake->pos.Y-1};
+    }
+    else if(snake->dir == DOWN){
+        if((snake->pos.Y+1) >= BOARD_SIZE){return (struct Position){snake->pos.X, 0};}
+        return (struct Position){snake->pos.X, snake->pos.Y+1};
+    }
+    else if(snake->dir == LEFT){
+        if((snake->pos.X-1) < 0){return (struct Position){BOARD_SIZE-1, snake->pos.Y};}
+        return (struct Position){snake->pos.X-1, snake->pos.Y};
+    }
+    else{
+        if((snake->pos.X+1) >= BOARD_SIZE){return (struct Position){0, snake->pos.Y};}
+        return (struct Position){snake->pos.X+1, snake->pos.Y};  
     }
 }
 
-void update_snake_pos(struct Board *board, const struct Snake *snake){
-    struct snake *snk_ptr = snake;
+void update_snake_pos(struct Board *board, struct Snake *snake){
+    /*struct snake *snk_ptr = snake;
     while(snk_ptr != NULL){
         
-    }
+    }*/
+   make_move(board, &snake->pos, AIR);
+   snake->pos = calc_new_snake_part_pos(snake);
+   make_move(board, &snake->pos, SNAKE_PART);
 }
