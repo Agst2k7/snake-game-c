@@ -2,6 +2,7 @@
 #define DIRECTION_H
 
 enum Direction{
+    NONE,
     UP,
     DOWN,
     LEFT,

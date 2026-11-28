@@ -24,11 +24,17 @@ struct Position calc_new_snake_part_pos(const struct Snake *snake){
 }
 
 void update_snake_pos(struct Board *board, struct Snake *snake){
-    /*struct snake *snk_ptr = snake;
+    struct Snake *snk_ptr = snake;
+    struct Position last_pos = snk_ptr->pos;
+    
+    make_move(board, &snk_ptr->pos, AIR);
+    snk_ptr->pos = calc_new_snake_part_pos(snk_ptr);
+    make_move(board, &snk_ptr->pos, SNAKE_PART);
     while(snk_ptr != NULL){
-        
-    }*/
-   make_move(board, &snake->pos, AIR);
-   snake->pos = calc_new_snake_part_pos(snake);
-   make_move(board, &snake->pos, SNAKE_PART);
+        snk_ptr = snk_ptr->next;
+        snk_ptr->pos = last_pos;
+        make_move(board, &snk_ptr->pos, AIR);
+        make_move(board, &snk_ptr->pos, SNAKE_PART);
+        snk_ptr = snk_ptr->next;
+    }
 }
